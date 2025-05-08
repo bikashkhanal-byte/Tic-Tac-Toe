@@ -5,23 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="modal.css">
 </head>
 <body>
-    <div id="gameContainer">
+    <div class="form__group field">
+    <input type="input" class="form__field" placeholder="Player X"  id='name' required />
+    <input type="input" class="form__field" placeholder="Player O"  id='name' required />
+    <button class="button-85" role="button"> Start Game</button>
+  </div> 
+<!-- gamw -->
+    <div id="gameContainer" style="display: none;">
+
         <h1>Tic-Tac-Toe</h1>
         <div id="cellContainer">
-            <div cellIndex="0" class="cell"></div>
-            <div cellIndex="1" class="cell"></div>
-            <div cellIndex="2" class="cell"></div>
-            <div cellIndex="3" class="cell"></div>
-            <div cellIndex="4" class="cell"></div>
-            <div cellIndex="5" class="cell"></div>
-            <div cellIndex="6" class="cell"></div>
-            <div cellIndex="7" class="cell"></div>
-            <div cellIndex="8" class="cell"></div>
+            <div data-index="0" class="cell"></div>
+            <div data-index="1" class="cell"></div>
+            <div data-index="2" class="cell"></div>
+            <div data-index="3" class="cell"></div>
+            <div data-index="4" class="cell"></div>
+            <div data-index="5" class="cell"></div>
+            <div data-index="6" class="cell"></div>
+            <div data-index="7" class="cell"></div>
+            <div data-index="8" class="cell"></div>
         </div>
-        <h2 id="StatusText"></h2>
-        <button id="restartBtn">New Game</button>
+        <h1 id="StatusText"></h1>
+        <button id="restartBtn">Rwstart Game</button>
     </div>
     <script src="script.js"></script>
 
