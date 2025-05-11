@@ -19,27 +19,26 @@ body{
     line-height: 75px;
     font-size: 50px;
     cursor: pointer;
+    color:white;
 
 }
 
 #gameContainer{
     font-family: "Permanent Marker", cursive;
     text-align: center;
-    
+    display: none;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
 }
-
-h1{
-    margin-bottom:30px;
-    margin-left: 60px;
-}
-
 
 #cellContainer{
     display: grid;
     grid-template-columns: repeat(3, auto);
     width: 250px;
     margin: auto;
-    
+
 }
 
 #restartBtn{
@@ -48,6 +47,14 @@ h1{
 
 }
 
-#StatusText{
-    margin: 20px;
+.winner {
+    color: green;
+    font-weight: bold;
+    animation: pop 0.3s ease-in;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
