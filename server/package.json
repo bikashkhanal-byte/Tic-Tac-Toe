@@ -1,0 +1,26 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "game"
+  ],
+  "homepage": "https://github.com/bikashkhanal-byte/Tic-Tac-Toe#readme",
+  "bugs": {
+    "url": "https://github.com/bikashkhanal-byte/Tic-Tac-Toe/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bikashkhanal-byte/Tic-Tac-Toe.git"
+  },
+  "license": "ISC",
+  "author": "bikash",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

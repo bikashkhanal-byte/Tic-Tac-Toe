@@ -33,6 +33,10 @@ startGameBtn.addEventListener("click", () => {
 const cells = document.querySelectorAll(".cell");
 const statusText = document.querySelector("#StatusText");
 const restartBtn = document.querySelector("#restartBtn");
+const leaderboard = document.querySelector("#leaderboard");
+
+let playerXwins = 0;
+let playerOwins = 0;
 
 const WinCondition = [
     [0 , 1 , 2],
@@ -103,8 +107,25 @@ function CheckWinner(){
                 const winnerName = CurrentPlayer === "X" ? playerXName : playerOName;
                 statusText.textContent = `${winnerName} (${CurrentPlayer}) wins!`;
                 statusText.classList.add("winner"); 
-                document.getElementById("celebrationGif").display.style = "block";
+                //gif
+                document.getElementById("celebrationGif").style.display = "block";
                 running = false;
+
+                if(CurrentPlayer == "X"){
+                    playerXwins++;
+                    document.getElementById('playerXWins').textContent = playerXwins;
+                    document.getElementById('playerXLabel').textContent = playerXName;
+                    
+                   }
+                   else{
+                        playerOwins++;
+                        document.getElementById('playerOWins').textContent = playerOwins;
+                        document.getElementById('playerOLabel').textContent = playerOName;
+                    }
+
+                    leaderboard.style.display = "block";
+                    gameBoard.style.display = "none";
+                    
             }
             
             //if no change 3 in a row display draw

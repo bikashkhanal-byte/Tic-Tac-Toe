@@ -12,15 +12,25 @@ body{
 }
 
 .cell{
-    width: 120px;
-    height: 100px;
-    border: 2px solid;
-    box-shadow: 0 0 0 3px;
-    line-height: 75px;
-    font-size: 50px;
+    width: 200px; 
+    height: 200px;
+    font-size: 115px;  
+    border: 2px solid #dfdfdf;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    color:white;
+    box-shadow:0 0 20px;
+    color: rgb(218, 193, 193);
+    border-top: none;
+    border-bottom: none;
 
+
+}
+
+#StatusText{
+    color: white;
+    margin: 30px 20px;
 }
 
 #gameContainer{
@@ -36,9 +46,8 @@ body{
 #cellContainer{
     display: grid;
     grid-template-columns: repeat(3, auto);
-    width: 250px;
-    margin: auto;
-
+    margin: 30px auto;
+    
 }
 
 #restartBtn{

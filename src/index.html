@@ -9,12 +9,15 @@
     </head>
     <body>
         
+      <!--                          Login-Modal                                -->
         <div class="form__group field">
             <input type="text " class="form__field  playerXInput" placeholder="Player X"  id='name' required />
             <input type="text" class="form__field playerOInput"  placeholder="Player O"  id='name' required />
             <button class="button-85" role="button"> Start Game</button>
         </div> 
 
+
+          <!--                          Game-Board                              -->
         <div id="gameContainer" >
             <div id="cellContainer">
                 <div data-index="0" class="cell"></div>
@@ -28,11 +31,13 @@
                 <div data-index="8" class="cell"></div>
             </div>
             <h1 id="StatusText"></h1>
-            <img id="celebrationGif" src="https://media1.tenor.com/m/CBTc4THJaocAAAAC/fireworks-lights.gif" style="display:none; width: 150px; margin-top: 10px;" />
-            <button class="button-85 " id="restartBtn" role="button"> Restart Game</button>
-
+            <div id="celebrationGifContainer"/>
+            <imgx id="celebrationGif" src="./image/winner.gif"/>
         </div>
-        
+            <button class="button-85 " id="restartBtn" role="button"> Restart Game</button>
+        </div>
+
+         
         <script src="script.js"></script>
 </body>
 </html>
