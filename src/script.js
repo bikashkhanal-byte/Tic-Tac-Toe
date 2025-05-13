@@ -108,25 +108,26 @@ function CheckWinner(){
                 statusText.textContent = `${winnerName} (${CurrentPlayer}) wins!`;
                 statusText.classList.add("winner"); 
                 //gif
-                document.getElementById("celebrationGif").style.display = "block";
-                running = false;
+                confetti({
+                    particleCount: 400,
+                    spread: 100,
+                    origin:{y: 0.7}
+                });
+                   
+                
+                  //sound effect
+                  const winSound = document.getElementById("winSound");
+                  winSound.currentTime = 0; // Rewind to start
+                  winSound.play();
+                  
+                  // Stop the sound after 3 seconds (or your confetti duration)
+                  setTimeout(() => {
+                      winSound.pause();
+                      winSound.currentTime = 0;
+                  }, 5000);
 
-                if(CurrentPlayer == "X"){
-                    playerXwins++;
-                    document.getElementById('playerXWins').textContent = playerXwins;
-                    document.getElementById('playerXLabel').textContent = playerXName;
-                    
-                   }
-                   else{
-                        playerOwins++;
-                        document.getElementById('playerOWins').textContent = playerOwins;
-                        document.getElementById('playerOLabel').textContent = playerOName;
-                    }
-
-                    leaderboard.style.display = "block";
-                    gameBoard.style.display = "none";
-                    
             }
+            
             
             //if no change 3 in a row display draw
 
@@ -145,7 +146,7 @@ function CheckWinner(){
         cells.forEach(cell => cell.textContent = "");
         statusText.classList.remove("winner"); // remove styling
         statusText.textContent = `${playerXName}'s (X) turn`; // reset text
-        document.getElementById("celebrationGif").display.style = "block";
+
         running = true;
     }
     
