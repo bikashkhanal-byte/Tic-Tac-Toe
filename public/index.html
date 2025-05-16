@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tic-Tac-Toe</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="modal.css">
+        <link rel="stylesheet" href="menue.css">
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+      </head>
+      <body>
+        <audio id ="winSound"src="../sounds/success-fanfare-trumpets-6185.mp3" preload="audio"></audio>
+        <audio id="knocking-on-board" src="../sounds/knocking-on-board.mp3" preload="audio"></audio>
+
+        <!-- game Start -->    
+        <!--                          Login-Modal                                -->
+        <div class="form__group field">
+          <input type="text " class="form__field  playerXInput" placeholder="Player X"  id='name' required />
+          <input type="text" class="form__field playerOInput"  placeholder="Player O"  id='name' required />
+          <button class="button-85" role="button"> Start Game</button>
+        </div> 
+        
+        
+        <!--                          Game-Board                              -->
+        <div id="boardWrapperr">
+          <div id="gameContainer" >
+            <div id="cellContainer">
+              <div data-index="0" class="cell"></div>
+              <div data-index="1" class="cell"></div>
+              <div data-index="2" class="cell"></div>
+              <div data-index="3" class="cell"></div>
+              <div data-index="4" class="cell"></div>
+              <div data-index="5" class="cell"></div>
+              <div data-index="6" class="cell"></div>
+              <div data-index="7" class="cell"></div>
+              <div data-index="8" class="cell"></div>
+            </div>
+            <h1 id="StatusText"></h1>
+            <button class="button-85 " id="restartBtn" role="button"> Restart Game</button>
+          </div> 
+        </div>
+        <script src="script.js"></script>
+      </body>
+      </html>
