@@ -7,22 +7,31 @@
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="modal.css">
         <link rel="stylesheet" href="menue.css">
+      
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
       </head>
       <body>
+
         <audio id ="winSound"src="../sounds/success-fanfare-trumpets-6185.mp3" preload="audio"></audio>
         <audio id="knocking-on-board" src="../sounds/knocking-on-board.mp3" preload="audio"></audio>
 
-        <!-- game Start -->    
+        <!--                           game Start                                 -->    
+        <div id="menue">
+          <h1>Menue</h1>
+          <button class="button-85 friends-mode" role="button">Play with Friends</button>
+          <a href ="multiplayer/index.html">
+            <button class="button-85 multiplayer-mode" role="button ">Multiplayer Mode</button>
+          </a>
+        </div>
         <!--                          Login-Modal                                -->
-        <div class="form__group field">
+        <div class="form__group field" style="display: none;">
           <input type="text " class="form__field  playerXInput" placeholder="Player X"  id='name' required />
           <input type="text" class="form__field playerOInput"  placeholder="Player O"  id='name' required />
-          <button class="button-85" role="button"> Start Game</button>
+          <button class="button-85 startGame" role="button"> Start Game</button>
         </div> 
         
         
-        <!--                          Game-Board                              -->
+        <!--                          Game-Board                                -->
         <div id="boardWrapperr">
           <div id="gameContainer" >
             <div id="cellContainer">
@@ -40,6 +49,7 @@
             <button class="button-85 " id="restartBtn" role="button"> Restart Game</button>
           </div> 
         </div>
+        <script src="/socket.io/socket.io.js"></script>
         <script src="script.js"></script>
       </body>
       </html>

@@ -1,12 +1,45 @@
 //  game start
 
 const modal = document.querySelector(".form__group");
-const startGameBtn = document.querySelector(".button-85");
+const startGameBtn = document.querySelector(".startGame");
 const gameBoard = document.getElementById("gameContainer");
 let playerXName = "";
 let playerOName = "";
 
+
+//socket io
+const socket = io();
+    
+// Assuming you already have logic to handle grid clicks
+document.querySelectorAll('.cell').forEach(cell => {
+  cell.addEventListener('click', (e) => {
+    const index = e.target.dataset.index;
+    makeMove(index, 'X'); // your local move
+
+    // Send move to other player
+    socket.emit('move', { index });
+  });
+});
+
+// Receive move from opponent
+socket.on('move', (data) => {
+  makeMove(data.index, 'O'); // apply opponent move
+});
+
+
+//menue-option
+
+const FriendsMode = document.querySelector(".friends-mode");
+const menue = document.querySelector("#menue");
+
+FriendsMode.addEventListener("click", () =>{
+    modal.style.display = "flex";
+    menue.style.display = "none";
+
+});
+
 startGameBtn.addEventListener("click", () => { 
+    
     const playerXInput = document.querySelector(".playerXInput");
     const playerOInput = document.querySelector(".playerOInput");
     
@@ -22,6 +55,7 @@ startGameBtn.addEventListener("click", () => {
 
         statusText.textContent = `${playerXName}'s (X) turn`;
         running = true;
+
 
         Initilizegame();
     } else {
@@ -154,3 +188,4 @@ function CheckWinner(){
         running = true;
     }
     
+        
