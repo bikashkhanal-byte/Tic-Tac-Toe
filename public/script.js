@@ -1,47 +1,54 @@
-//  game start
+
+//   game start
 
 const modal = document.querySelector(".form__group");
 const startGameBtn = document.querySelector(".startGame");
 const gameBoard = document.getElementById("gameContainer");
-let playerXName = "";
-let playerOName = "";
-
-
-//socket io
-const socket = io();
-    
-// Assuming you already have logic to handle grid clicks
-document.querySelectorAll('.cell').forEach(cell => {
-  cell.addEventListener('click', (e) => {
-    const index = e.target.dataset.index;
-    makeMove(index, 'X'); // your local move
-
-    // Send move to other player
-    socket.emit('move', { index });
-  });
-});
-
-// Receive move from opponent
-socket.on('move', (data) => {
-  makeMove(data.index, 'O'); // apply opponent move
-});
-
-
-//menue-option
-
+const playerXInput = document.querySelector(".playerXInput");
+const playerOInput = document.querySelector(".playerOInput");
+const cells = document.querySelectorAll(".cell");
+const statusText = document.querySelector("#StatusText");
+const WinText = document.querySelector("#win");
 const FriendsMode = document.querySelector(".friends-mode");
 const menue = document.querySelector("#menue");
+const restartBtn = document.querySelector("#restartBtn");
+const leaderboard = document.querySelector("#leaderboard");
+const resetBtn = document.querySelector("#icon-reset")
+const winLine = document.querySelector("#winLine line");
+
+
+let playerXwins = 0;
+let playerOwins = 0;
+
+const WinCondition = [
+    [0 , 1 , 2],
+    [3 , 4 , 5],   
+    [6 , 7 , 8],
+    [0 , 3 , 6],
+    [1 , 4 , 7],
+    [2 , 5 , 8],
+    [0 , 4 , 8],
+    [2 , 4 , 6]
+];
+let options = ["" , "" , "" , "" , "" , "" , "" , "" , ""];
+let CurrentPlayer = "X";
+let running = false;
+
+
+let playerXName = "";
+let playerOName = "";
 
 FriendsMode.addEventListener("click", () =>{
     modal.style.display = "flex";
     menue.style.display = "none";
 
+    playerXInput.value = "";
+    playerOInput.value = "";
 });
 
+
+
 startGameBtn.addEventListener("click", () => { 
-    
-    const playerXInput = document.querySelector(".playerXInput");
-    const playerOInput = document.querySelector(".playerOInput");
     
     const playerXValue = playerXInput.value.trim();
     const playerOValue = playerOInput.value.trim();
@@ -63,34 +70,17 @@ startGameBtn.addEventListener("click", () => {
     }
 });
    
-const cells = document.querySelectorAll(".cell");
-const statusText = document.querySelector("#StatusText");
-const restartBtn = document.querySelector("#restartBtn");
-const leaderboard = document.querySelector("#leaderboard");
-
-let playerXwins = 0;
-let playerOwins = 0;
-
-const WinCondition = [
-    [0 , 1 , 2],
-    [3 , 4 , 5],   
-    [6 , 7 , 8],
-    [0 , 3 , 6],
-    [1 , 4 , 7],
-    [2 , 5 , 8],
-    [0 , 4 , 8],
-    [2 , 4 , 6]
-];
-let options = ["" , "" , "" , "" , "" , "" , "" , "" , ""];
-let CurrentPlayer = "X";
-let running = false;
 
 function Initilizegame(){
-    cells.forEach( cell => cell.addEventListener('click' , cellClicked));
+    cells.forEach(cell => cell.addEventListener("click", cellClicked));
     const name = CurrentPlayer === "X" ? playerXName : playerOName;
     restartBtn.addEventListener('click',RestartGame);
     statusText.textContent = `${name} ${CurrentPlayer}'s turn`;
-    running = true;
+    restartBtn.style.display ="block";
+    statusText.style.display = "block";
+    resetBtn.style.display="block";
+    gameBoard.style.display="grid";
+
     
 }
 
@@ -104,7 +94,10 @@ function cellClicked(){
     const KnockingOnBoard = document.getElementById('knocking-on-board');
      KnockingOnBoard.currentTime = 0;
      KnockingOnBoard.play();
-    CheckWinner();
+     
+     CurrentPlayer = CurrentPlayer === "X" ? "O" : "X";
+
+    //  ChangePlayer();
 }
 
 
@@ -129,10 +122,14 @@ function CheckWinner(){
             const cellC = options[condion[2]];
 
 
-            if(cellA == ""|| cellB == "" || cellC == "" ) continue;
+            if(cellA == ""|| cellB == "" || cellC == "" ){
+                if (cellA == cellB && cellB == cellC) {
+                    roundWon = true;
+                    running = false;
+                    return condion;  // ✅ Return the actual winning pattern
+                } continue;
+                }
             
-            // check cells are same string
-
             if(cellA == cellB && cellB == cellC ){
                 roundWon = true;
                 break;
@@ -141,31 +138,44 @@ function CheckWinner(){
             //display who won the round 
 
             if (roundWon) {
-                statusText.classList.add('winner');
+                statusText.style.display="none";
                 const winnerName = CurrentPlayer === "X" ? playerXName : playerOName;
-                statusText.textContent = `${winnerName} (${CurrentPlayer})'s wins!`;
-                
-                //Animation 
-                
+                // statusText.textContent =`${winnerName} (${CurrentPlayer})'s Wins! `                
+                WinText.textContent = `${winnerName} (${CurrentPlayer})'s wins!`;
+            
+                 // Animate the win text
+                WinText.classList.remove('animate');
+                void WinText.offsetWidth; // Force reflow
+                WinText.classList.add('animate');
+
+
                 confetti({
                     particleCount:1000,
                     spread: 220,
                     origin:{y: 0.6}
                 });
-                   
-                
                   //sound effect
-
                   const winSound = document.getElementById("winSound");
-                  winSound.currentTime = 0; // Rewind to start
-                  winSound.play();
-                  
-                  // Stop the sound after 3 seconds (or your confetti duration)
-                  setTimeout(() => {
-                      winSound.pause();
-                      winSound.currentTime = 0;
-                  }, 4000);
 
+                  if (winSound) {
+                      winSound.muted = false;
+                      winSound.volume = 1.0;
+                      winSound.currentTime = 0;
+                  
+                      winSound.play()
+                          .then(() => {
+                              setTimeout(() => {
+                                  winSound.pause();
+                                  winSound.currentTime = 0;
+                              }, 4000);
+                          })
+                          .catch((err) => {
+                              console.warn("Sound failed to play:", err);
+                          });
+                  } else {
+                      console.warn("winSound element not found.");
+                  }
+                  
                   running = false;
             }
             //if no change 3 in a row display draw
@@ -178,14 +188,72 @@ function CheckWinner(){
                 ChangePlayer();
             }
     }
-
-    function RestartGame(){
+function RestartGame() {
         CurrentPlayer = "X";
         options = ["", "", "", "", "", "", "", "", ""];
         cells.forEach(cell => cell.textContent = "");
-        statusText.classList.remove("winner")
-        statusText.textContent = `${playerXName}'s (X) turn`;
+        statusText.textContent = `${playerXName || "Player X"}'s (X) turn`;
+
         running = true;
     }
     
+    //go at the begining
+
+    resetBtn.addEventListener("click", function reset() {
+        CurrentPlayer = "X";
+        options = ["", "", "", "", "", "", "", "", ""];
+        statusText.textContent = `${playerXName}'s (X) turn`;
+
+        cells.forEach(cell => cell.textContent = "");
+        // Hide the game board
+        gameBoard.style.display = "none";
+    
+        // Show the modal to input player names again
+        modal.style.display = "flex";
+    
+        // Hide the reset button
+        restartBtn.style.display = "none";
+        resetBtn.style.display ="none";
+        // Clear the player input fields
+        playerXInput.value = "";
+        playerOInput.value = "";
+    
+        // Reset stored player names
+        playerXName = "";
+        playerOName = "";
+    
         
+        // Clear status and win messages
+        statusText.textContent = "";
+        WinText.textContent = "";
+        running = true;
+    })
+    
+
+
+    // const line = document.querySelector("#win-line line");
+
+// function drawWinLine(patternIndex) {
+//   const coords = [
+//     { x1: 10, y1: 16, x2: 90, y2: 16 }, // Row 0
+//     { x1: 10, y1: 50, x2: 90, y2: 50 }, // Row 1
+//     { x1: 10, y1: 84, x2: 90, y2: 84 }, // Row 2
+//     { x1: 16, y1: 10, x2: 16, y2: 90 }, // Col 0
+//     { x1: 50, y1: 10, x2: 50, y2: 90 }, // Col 1
+//     { x1: 84, y1: 10, x2: 84, y2: 90 }, // Col 2
+//     { x1: 10, y1: 10, x2: 90, y2: 90 }, // Diagonal TL -> BR
+//     { x1: 90, y1: 10, x2: 10, y2: 90 }, // Diagonal TR -> BL
+//   ];
+
+//   const { x1, y1, x2, y2 } = coords[patternIndex];
+//   line.setAttribute("x1", x1);
+//   line.setAttribute("y1", y1);
+//   line.setAttribute("x2", x1);
+//   line.setAttribute("y2", y1);
+
+//   // Animate to final coordinates
+//   setTimeout(() => {
+//     line.setAttribute("x2", x2);
+//     line.setAttribute("y2", y2);
+//   }, 10); // slight delay to trigger transition
+// }

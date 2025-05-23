@@ -91,6 +91,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  font-size: 1.2rem;
 }
 
 .button-85:before {
@@ -144,4 +145,5 @@
   top: 0;
   border-radius: 10px;
 }
+
 

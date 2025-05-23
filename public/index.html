@@ -7,33 +7,32 @@
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="modal.css">
         <link rel="stylesheet" href="menue.css">
-      
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
       </head>
       <body>
-
-        <audio id ="winSound"src="../sounds/success-fanfare-trumpets-6185.mp3" preload="audio"></audio>
-        <audio id="knocking-on-board" src="../sounds/knocking-on-board.mp3" preload="audio"></audio>
-
+        <audio id ="winSound" src ="assets/sounds/success-fanfare-trumpets-6185.mp3" preload="audio"></audio>
+        <audio id="knocking-on-board" src ="assets/sounds/knocking-on-board.mp3" preload="audio"></audio>
         <!--                           game Start                                 -->    
         <div id="menue">
           <h1>Menue</h1>
-          <button class="button-85 friends-mode" role="button">Play with Friends</button>
-          <a href ="multiplayer/index.html">
-            <button class="button-85 multiplayer-mode" role="button ">Multiplayer Mode</button>
-          </a>
+            <button class="button-85 friends-mode" role="button">Play with Friends</button>
         </div>
         <!--                          Login-Modal                                -->
         <div class="form__group field" style="display: none;">
           <input type="text " class="form__field  playerXInput" placeholder="Player X"  id='name' required />
-          <input type="text" class="form__field playerOInput"  placeholder="Player O"  id='name' required />
-          <button class="button-85 startGame" role="button"> Start Game</button>
+          <input type="text " class="form__field  playerOInput" placeholder="Player O"  id='name' required />
+
+          <button class="button-85 startGame" role="button"> Start</button>
         </div> 
         
         
         <!--                          Game-Board                                -->
         <div id="boardWrapperr">
-          <div id="gameContainer" >
+          <div id="gameContainer" style="display: none;">
             <div id="cellContainer">
               <div data-index="0" class="cell"></div>
               <div data-index="1" class="cell"></div>
@@ -43,13 +42,23 @@
               <div data-index="5" class="cell"></div>
               <div data-index="6" class="cell"></div>
               <div data-index="7" class="cell"></div>
-              <div data-index="8" class="cell"></div>
-            </div>
-            <h1 id="StatusText"></h1>
-            <button class="button-85 " id="restartBtn" role="button"> Restart Game</button>
-          </div> 
+              <div data-index="8" class="cell"></div> 
+            </div> 
+          </div>
+          <svg class="win-line" id="winLine">
+            <line x1="0" y1="0" x2="0" y2="0" />
+          </svg>
+          <h1 id="StatusText"></h1>
+          <h1 id="win"></h1>
+          <div class="btn-wrap">
+            <button class="button-85 " id="restartBtn" role="button" style="display: none;"> Restart</button>
+            <button class="button-85" id="icon-reset" role="button" style="display: none;" >
+              <p class="hover-text">Reset Game</p>
+              <i class="ri-arrow-go-back-line "></i>
+            </button>
+
+          </div>
         </div>
-        <script src="/socket.io/socket.io.js"></script>
         <script src="script.js"></script>
       </body>
       </html>
