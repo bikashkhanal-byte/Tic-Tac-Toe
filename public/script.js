@@ -95,9 +95,8 @@ function cellClicked(){
      KnockingOnBoard.currentTime = 0;
      KnockingOnBoard.play();
      
-     CurrentPlayer = CurrentPlayer === "X" ? "O" : "X";
-
-    //  ChangePlayer();
+ 
+     CheckWinner();
 }
 
 
@@ -120,23 +119,14 @@ function CheckWinner(){
             const cellA = options[condion[0]];
             const cellB = options[condion[1]];
             const cellC = options[condion[2]];
-
-
-            if(cellA == ""|| cellB == "" || cellC == "" ){
-                if (cellA == cellB && cellB == cellC) {
-                    roundWon = true;
-                    running = false;
-                    return condion;  // ✅ Return the actual winning pattern
-                } continue;
-                }
-            
+           
+            if(cellA == ""|| cellB == "" || cellC == "" ) continue;
             if(cellA == cellB && cellB == cellC ){
                 roundWon = true;
                 break;
             }
         }
             //display who won the round 
-
             if (roundWon) {
                 statusText.style.display="none";
                 const winnerName = CurrentPlayer === "X" ? playerXName : playerOName;
@@ -180,14 +170,15 @@ function CheckWinner(){
             }
             //if no change 3 in a row display draw
 
-            else if(!options.includes("")) {
+            else if(!roundWon && !options.includes("")) {
                 statusText.textContent = "Draw!";
             }
-
-            else{ //moves to other player 
+           
+            else{
                 ChangePlayer();
             }
-    }
+}   
+
 function RestartGame() {
         CurrentPlayer = "X";
         options = ["", "", "", "", "", "", "", "", ""];
@@ -229,31 +220,3 @@ function RestartGame() {
         running = true;
     })
     
-
-
-    // const line = document.querySelector("#win-line line");
-
-// function drawWinLine(patternIndex) {
-//   const coords = [
-//     { x1: 10, y1: 16, x2: 90, y2: 16 }, // Row 0
-//     { x1: 10, y1: 50, x2: 90, y2: 50 }, // Row 1
-//     { x1: 10, y1: 84, x2: 90, y2: 84 }, // Row 2
-//     { x1: 16, y1: 10, x2: 16, y2: 90 }, // Col 0
-//     { x1: 50, y1: 10, x2: 50, y2: 90 }, // Col 1
-//     { x1: 84, y1: 10, x2: 84, y2: 90 }, // Col 2
-//     { x1: 10, y1: 10, x2: 90, y2: 90 }, // Diagonal TL -> BR
-//     { x1: 90, y1: 10, x2: 10, y2: 90 }, // Diagonal TR -> BL
-//   ];
-
-//   const { x1, y1, x2, y2 } = coords[patternIndex];
-//   line.setAttribute("x1", x1);
-//   line.setAttribute("y1", y1);
-//   line.setAttribute("x2", x1);
-//   line.setAttribute("y2", y1);
-
-//   // Animate to final coordinates
-//   setTimeout(() => {
-//     line.setAttribute("x2", x2);
-//     line.setAttribute("y2", y2);
-//   }, 10); // slight delay to trigger transition
-// }

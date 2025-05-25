@@ -136,21 +136,6 @@ body{
     position: absolute;
 
   }
-
-  /* .hover-text{
-    position: relative;
-    bottom: 100%;
-    opacity: 2;
-  }
-
-  #icon-reset:hover .hover-text{
-    background-color: transparent;
-    width: 120px;
-    height: 100px;
-    padding: none;
-    z-index: 1;
-    /* bottom: 125%; */
-    
   #icon-reset{
     position: relative;
   }
@@ -194,3 +179,6 @@ body{
     transition: all 0.4s ease;
   }
   
+  #draw.draw-animation{
+    color: orange;
+  }
